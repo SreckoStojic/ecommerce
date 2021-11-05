@@ -1,0 +1,14 @@
+.css-search {
+    width: 300px;
+    margin-left: 610px;
+    margin-bottom: 20px;
+}
+
+.css-products {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 50px;
+    margin-left: 60px;
+}

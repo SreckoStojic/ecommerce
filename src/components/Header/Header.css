@@ -1,0 +1,8 @@
+nav ul {
+    list-style-type: none;
+    margin: 20px;
+    padding: 0;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}

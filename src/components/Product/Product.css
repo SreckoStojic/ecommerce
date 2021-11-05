@@ -1,0 +1,20 @@
+.css-product {
+    width: 300px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid steelblue;
+    border-radius: 20px;
+    background-color: whitesmoke;
+}
+
+button {
+    border-radius: 20px;
+    color: whitesmoke;
+    background-color:cornflowerblue;
+    border: none;
+    width: 150px;
+    height: 32px;
+}
