@@ -8,6 +8,7 @@
     border: 1px solid steelblue;
     border-radius: 20px;
     background-color: whitesmoke;
+    padding: 5px;
 }
 
 button {
@@ -17,4 +18,6 @@ button {
     border: none;
     width: 150px;
     height: 32px;
+    cursor: pointer;
+    z-index: 1;
 }

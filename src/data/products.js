@@ -62,7 +62,6 @@ let products = [
         imgUrl: "/images/apple-iphone-11.jfif",
         color: "green"
     },
-    ,
     {
         id: 8,
         name: "Xiaomi Poco F3 Arctic",
@@ -74,4 +73,16 @@ let products = [
     }
 ]
 
-export default products;
+export function getProducts() {
+    return products;
+}
+
+export function getProductById(id) {
+    let product = null;
+    products.forEach(p => {
+        if(p.id === Number(id)) {
+            product = p;
+        }
+    });
+    return product;
+}

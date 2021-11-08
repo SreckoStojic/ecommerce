@@ -1,0 +1,31 @@
+.css-product-info {
+    position: absolute;
+    left: 28%;
+    top: 20%;
+    height: 400px;
+    width: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid cornflowerblue;
+    border-radius: 20px;
+    background-color: whitesmoke;
+}
+
+span {
+    font-size: 23px;
+    font-weight: 700;
+}
+
+.css-product-info-img {
+    padding-right: 50px;
+}
+
+.css-product-info-details {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1px;
+}

@@ -4,20 +4,23 @@ import {
   Link
 } from "react-router-dom";
 
-function Header() {
+function Header(props) {
     return (
-        <div>
-            <nav>
-                <ul>
+        <nav>
+            <ul>
+                <div className="css-header-div">
                     <li>
                         <Link to="/">Home</Link>
                     </li>
                     <li>
                         <Link to="/products">Products</Link>
                     </li>
-                </ul>
-            </nav>
-        </div>
+                </div>
+                <li>
+                    <Link to="/cart">Cart ({props.cartCount})</Link>
+                </li>
+            </ul>
+        </nav>
     );
 };
 
