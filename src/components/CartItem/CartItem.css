@@ -5,3 +5,11 @@
     font-size: large;
     border-radius: 50%;
 }
+
+.css-count-btn {
+    width: 30px;
+    margin-left: 15px;
+    margin-right: 15px;
+    border-radius: 5px;
+    background-color: darkcyan;
+}

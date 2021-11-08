@@ -30,7 +30,7 @@ function Products(props) {
                     }
                 })
                 .map(p => 
-                    <Product cartItems={props.cartItems} id={p.id} key={p.id} name={p.name} price={p.price} weight={p.weight} color={p.color} count={p.count} imgUrl={p.imgUrl} handleClick={() => props.addItemToCart(p.id)}/>
+                    <Product cartItems={props.cartItems} id={p.id} key={p.id} name={p.name} price={p.price} weight={p.weight} color={p.color} count={p.count} inCart={p.inCart} imgUrl={p.imgUrl} handleClick={() => props.addItemToCart(p.id)}/>
                 )}
             </div>
         </div>

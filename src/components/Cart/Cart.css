@@ -33,3 +33,10 @@
 span {
     font-weight: 600;
 }
+
+.css-clear-all-btn {
+    width: 80px;
+    background-color: red;
+    color: white;
+    font-size: large;
+}

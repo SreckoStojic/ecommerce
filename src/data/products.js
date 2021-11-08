@@ -6,7 +6,8 @@ let products = [
         price: 21999,
         weight: 200,
         imgUrl: "/images/moto-g9-play.jfif",
-        color: "blue"
+        color: "blue",
+        inCart: 0
     },
     {
         id: 2,
@@ -15,7 +16,8 @@ let products = [
         price: 1999,
         weight: 180,
         imgUrl: "/images/coolpad-allure-f113.jfif",
-        color: "black"
+        color: "black",
+        inCart: 0
     },
     {
         id: 3,
@@ -24,7 +26,8 @@ let products = [
         price: 99999,
         weight: 230,
         imgUrl: "/images/asus-zenfone-8.jfif",
-        color: "black"
+        color: "black",
+        inCart: 0
     },
     {
         id: 4,
@@ -33,7 +36,8 @@ let products = [
         price: 36999,
         weight: 240,
         imgUrl: "/images/xiaomi-redmi-note-9-pro.jfif",
-        color: "white"
+        color: "white",
+        inCart: 0
     },
     {
         id: 5,
@@ -42,7 +46,8 @@ let products = [
         price: 9090,
         weight: 210,
         imgUrl: "/images/panasonic.jfif",
-        color: "red"
+        color: "red",
+        inCart: 0
     },
     {
         id: 6,
@@ -51,7 +56,8 @@ let products = [
         price: 24999,
         weight: 210,
         imgUrl: "/images/moto-g8-power.jfif",
-        color: "black"
+        color: "black",
+        inCart: 0
     },
     {
         id: 7,
@@ -60,7 +66,8 @@ let products = [
         price: 93999,
         weight: 190,
         imgUrl: "/images/apple-iphone-11.jfif",
-        color: "green"
+        color: "green",
+        inCart: 0
     },
     {
         id: 8,
@@ -69,7 +76,8 @@ let products = [
         price: 45999,
         weight: 210,
         imgUrl: "/images/xiaomi-poco-arctic.jfif",
-        color: "blue"
+        color: "blue",
+        inCart: 0
     }
 ]
 
