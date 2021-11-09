@@ -40,3 +40,10 @@ span {
     color: white;
     font-size: large;
 }
+
+.css-buy-btn {
+    width: 80px;
+    background-color: green;
+    color: white;
+    font-size: large;
+}

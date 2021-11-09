@@ -41,6 +41,15 @@ function Cart(props) {
                     <td><span>{calculateTotalPrice()} RSD</span></td>
                     <td><button className="css-clear-all-btn" type="button" onClick={() => props.clearCart()}>Clear All</button></td>
                 </tr>
+                <tr className="css-total-price-tr">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td> 
+                    <td></td>
+                    <td><button className="css-buy-btn" type="button" onClick={() => props.buy()}>Buy</button></td>
+                </tr>
                 </tbody>
             </table>
         </div>
