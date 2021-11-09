@@ -8,7 +8,7 @@ function CartItem(props) {
             <td>{props.name}</td>
             <td>{props.weight} g</td>
             <td>{props.color}</td>
-            <td><button className="css-count-btn" type="button" onClick={props.removeInCartByOne} disabled={(props.inCart > 0) ? false : true} >-1</button>{props.inCart}/{props.count}<button className="css-count-btn" type="button" onClick={props.addInCartByOne} disabled={(props.inCart < props.count) ? false : true}>+1</button></td>
+            <td><button className="css-count-btn" type="button" onClick={props.removeInCartByOne} disabled={(props.inCart > 1) ? false : true} >-1</button>{props.inCart}/{props.count}<button className="css-count-btn" type="button" onClick={props.addInCartByOne} disabled={(props.inCart < props.count) ? false : true}>+1</button></td>
             <td>{props.inCart} x {props.price} RSD</td>
             <td><button className="css-remove-btn" type="button" onClick={props.handleClick}>X</button></td>
         </tr>

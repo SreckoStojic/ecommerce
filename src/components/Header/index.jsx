@@ -17,7 +17,7 @@ function Header(props) {
                     </li>
                 </div>
                 <li>
-                    <Link to="/cart">Cart ({props.cartCount})</Link>
+                    <Link to="/cart">Cart ({props.totalCartCount})</Link>
                 </li>
             </ul>
         </nav>

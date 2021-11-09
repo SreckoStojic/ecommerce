@@ -5,29 +5,35 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Products from './components/Products';
 import ProductInfo from './components/ProductInfo';
 import Cart from './components/Cart';
-import { getProductById } from './data/products';
+import { getProductById, getProducts } from './data/products';
 
 function App() { 
   let [cartItems, setCartItems] = useState([]);
+  let [totalCartCount, setTotalCartCount] = useState(0);
 
   function addItemToCart(productId) {
     let found = false;
     const product = getProductById(productId);
     if(cartItems.length === 0) {
-      setCartItems(cartItems => [...cartItems, product]);
+      if(product.count > 0){
+        product.inCart += 1;
+        setCartItems(cartItems => [...cartItems, product]);
+      }
     } else {
       cartItems.forEach(ci => {
         if(ci.id === product.id){
-          if(ci.inCart < ci.count){
+          if(ci.inCart < ci.count && ci.count > 0){
             ci.inCart += 1;
-            
             setCartItems(cartItems => [...cartItems]);
           }
           found = true;
         }
       });
       if(found === false) {
-        setCartItems(cartItems => [...cartItems, product]);
+        if(product.count > 0){
+          product.inCart += 1;
+          setCartItems(cartItems => [...cartItems, product]);
+        }
       }
     }
   }
@@ -40,11 +46,23 @@ function App() {
 
   function clearCart() {
     setCartItems([]);
+    clearInCartCount();
   }
 
   function buy() {
-    alert("Thanks for buying our products. Receipt is sent to your email address.")
-    setCartItems([]);
+    if(cartItems.length !== 0) {
+      alert("Thanks for buying our products. Receipt is sent to your email address.");
+      getProducts().forEach(product => {
+        cartItems.forEach(ci => {
+          if(product.id === ci.id){
+            product.count -= ci.inCart; 
+          }
+        });
+      });
+      clearCart();
+    } else {
+      alert("Cart is empty.");
+    }
   }
 
   function addInCartByOne(productId) {
@@ -65,16 +83,30 @@ function App() {
     setCartItems(cartItems => [...cartItems]);
   }
 
+  function calculateTotalCartCount() {
+    let ttc = 0;
+    cartItems.forEach(ci => {
+      ttc += ci.inCart;
+    });
+    setTotalCartCount(ttc);
+  }
+
+  function clearInCartCount() {
+    getProducts().forEach(p => {
+      p.inCart = 0;
+    });
+  }
+
   useEffect(() => {
-    console.log(cartItems);
+    calculateTotalCartCount();
   }, [cartItems]);
   return (
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" element={<Header />} />
-          <Route path="/products/" element={<Products cartItems={cartItems} addItemToCart={addItemToCart} />} />
-          <Route path="/cart/" element={<Cart cartItems={cartItems} buy={buy} removeItemFromCart={removeItemFromCart} clearCart={clearCart} addInCartByOne={addInCartByOne} removeInCartByOne={removeInCartByOne} />} />
-          <Route path="/products/product/:productId" element={<ProductInfo cartItems={cartItems} addItemToCart={addItemToCart} /> } />
+          <Route exact path="/" element={<Header totalCartCount={totalCartCount}/>} />
+          <Route path="/products/" element={<Products totalCartCount={totalCartCount} cartItems={cartItems} addItemToCart={addItemToCart} />} />
+          <Route path="/cart/" element={<Cart totalCartCount={totalCartCount} cartItems={cartItems} buy={buy} removeItemFromCart={removeItemFromCart} clearCart={clearCart} addInCartByOne={addInCartByOne} removeInCartByOne={removeInCartByOne} />} />
+          <Route path="/products/product/:productId" element={<ProductInfo totalCartCount={totalCartCount} cartItems={cartItems} addItemToCart={addItemToCart} /> } />
         </Routes>
       </BrowserRouter>
     );

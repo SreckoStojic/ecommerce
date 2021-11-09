@@ -6,10 +6,9 @@ import './Products.css';
 
 function Products(props) {
     const [searchParams, setSearchParams] = useSearchParams();
-    
     return (
         <div>
-            <Header cartCount={props.cartItems.length} cartItems={props.cartItems}/>
+            <Header totalCartCount={props.totalCartCount} cartItems={props.cartItems}/>
             <input className="css-search" placeholder="Search..." value={searchParams.get("search") || ''} 
             onChange={event => {
                 let search = event.target.value;

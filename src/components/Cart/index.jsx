@@ -13,7 +13,7 @@ function Cart(props) {
     }
     return (
         <div>
-            <Header cartCount={props.cartItems.length}/>
+            <Header totalCartCount={props.totalCartCount}/>
             <table className="css-table">
                 <thead>
                     <tr>
