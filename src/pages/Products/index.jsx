@@ -1,15 +1,15 @@
-import Product from '../Product';
-import Header from "../Header";
-import { getProducts }  from '../../data/products';
+import Product from '../../components/Product';
+import Header from "../../components/Header";
+import { getProducts }  from '../../utils/products';
 import { useSearchParams } from "react-router-dom";
-import './Products.css';
+import styles from './Products.module.css';
 
-function Products(props) {
+function Products({totalCartCount, cartItems, addItemToCart}) {
     const [searchParams, setSearchParams] = useSearchParams();
     return (
         <div>
-            <Header totalCartCount={props.totalCartCount} cartItems={props.cartItems}/>
-            <input className="css-search" placeholder="Search..." value={searchParams.get("search") || ''} 
+            <Header totalCartCount={totalCartCount} cartItems={cartItems}/>
+            <input className={styles['search']} placeholder="Search..." value={searchParams.get("search") || ''} 
             onChange={event => {
                 let search = event.target.value;
                 if (search) {
@@ -18,7 +18,7 @@ function Products(props) {
                     setSearchParams({});
                 }
             }}/>
-            <div className="css-products">
+            <div className={styles['products']}>
                 {getProducts().filter(prod => {
                     let search = searchParams.get("search"); 
                     if(!search) {
@@ -29,7 +29,7 @@ function Products(props) {
                     }
                 })
                 .map(p => 
-                    <Product cartItems={props.cartItems} id={p.id} key={p.id} name={p.name} price={p.price} weight={p.weight} color={p.color} count={p.count} inCart={p.inCart} imgUrl={p.imgUrl} handleClick={() => props.addItemToCart(p.id)}/>
+                    <Product cartItems={cartItems} product={p} key={p.id} handleClick={() => addItemToCart(p.id)}/>
                 )}
             </div>
         </div>

@@ -1,4 +1,4 @@
-.css-product-info {
+.product-info {
     position: absolute;
     left: 28%;
     top: 20%;
@@ -17,11 +17,11 @@ span {
     font-weight: 700;
 }
 
-.css-product-info-img {
+.product-info-img {
     padding-right: 50px;
 }
 
-.css-product-info-details {
+.product-info-details {
     width: 200px;
     display: flex;
     flex-direction: column;

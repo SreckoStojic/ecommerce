@@ -1,4 +1,4 @@
-.css-remove-btn {
+.remove-btn {
     width: 30px;
     background-color: red;
     color: white;
@@ -6,7 +6,7 @@
     border-radius: 50%;
 }
 
-.css-count-btn {
+.count-btn {
     width: 30px;
     margin-left: 15px;
     margin-right: 15px;

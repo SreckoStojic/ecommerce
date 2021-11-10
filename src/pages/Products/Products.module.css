@@ -1,10 +1,10 @@
-.css-search {
+.search {
     width: 300px;
     margin-left: 610px;
     margin-bottom: 20px;
 }
 
-.css-products {
+.products {
     width: 100vw;
     height: 100vh;
     display: flex;

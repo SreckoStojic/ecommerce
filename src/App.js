@@ -2,10 +2,10 @@ import './App.css';
 import React, { useEffect, useState } from 'react';
 import Header from './components/Header';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Products from './components/Products';
-import ProductInfo from './components/ProductInfo';
-import Cart from './components/Cart';
-import { getProductById, getProducts } from './data/products';
+import Products from './pages/Products';
+import ProductInfo from './pages/ProductInfo';
+import Cart from './pages/Cart';
+import { getProductById, getProducts } from './utils/products';
 
 function App() { 
   let [cartItems, setCartItems] = useState([]);
@@ -52,17 +52,21 @@ function App() {
   function buy() {
     if(cartItems.length !== 0) {
       alert("Thanks for buying our products. Receipt is sent to your email address.");
-      getProducts().forEach(product => {
-        cartItems.forEach(ci => {
-          if(product.id === ci.id){
-            product.count -= ci.inCart; 
-          }
-        });
-      });
+      resetInCart();
       clearCart();
     } else {
       alert("Cart is empty.");
     }
+  }
+
+  function resetInCart() {
+    getProducts().forEach(product => {
+      cartItems.forEach(ci => {
+        if(product.id === ci.id){
+          product.count -= ci.inCart; 
+        }
+      });
+    });
   }
 
   function addInCartByOne(productId) {
@@ -84,11 +88,11 @@ function App() {
   }
 
   function calculateTotalCartCount() {
-    let ttc = 0;
+    let totalCartCnt = 0;
     cartItems.forEach(ci => {
-      ttc += ci.inCart;
+      totalCartCnt += ci.inCart;
     });
-    setTotalCartCount(ttc);
+    setTotalCartCount(totalCartCnt);
   }
 
   function clearInCartCount() {

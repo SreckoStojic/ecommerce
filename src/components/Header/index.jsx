@@ -1,14 +1,13 @@
-import './Header.css';
-import React from "react";
+import styles from './Header.module.css';
 import {
   Link
 } from "react-router-dom";
 
-function Header(props) {
+function Header({totalCartCount}) {
     return (
         <nav>
             <ul>
-                <div className="css-header-div">
+                <div className={styles['header-div']}>
                     <li>
                         <Link to="/">Home</Link>
                     </li>
@@ -17,7 +16,7 @@ function Header(props) {
                     </li>
                 </div>
                 <li>
-                    <Link to="/cart">Cart ({props.totalCartCount})</Link>
+                    <Link to="/cart">Cart ({totalCartCount})</Link>
                 </li>
             </ul>
         </nav>

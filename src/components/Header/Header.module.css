@@ -7,7 +7,7 @@ ul {
     justify-content: space-between;
 }
 
-.css-header-div {
+.header-div {
     display: flex;
     gap: 30px;
 }
