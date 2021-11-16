@@ -6,44 +6,12 @@ import Products from './pages/Products';
 import ProductInfo from './pages/ProductInfo';
 import Cart from './pages/Cart';
 import { getProductById, getProducts } from './utils/products';
+import { useSelector } from 'react-redux';
+
 
 function App() { 
   let [cartItems, setCartItems] = useState([]);
   let [totalCartCount, setTotalCartCount] = useState(0);
-
-  function addItemToCart(productId) {
-    let found = false;
-    const product = getProductById(productId);
-    if(cartItems.length === 0) {
-      if(product.count > 0){
-        product.inCart += 1;
-        setCartItems(cartItems => [...cartItems, product]);
-      }
-    } else {
-      cartItems.forEach(ci => {
-        if(ci.id === product.id){
-          if(ci.inCart < ci.count && ci.count > 0){
-            ci.inCart += 1;
-            setCartItems(cartItems => [...cartItems]);
-          }
-          found = true;
-        }
-      });
-      if(found === false) {
-        if(product.count > 0){
-          product.inCart += 1;
-          setCartItems(cartItems => [...cartItems, product]);
-        }
-      }
-    }
-  }
-
-  function removeItemFromCart(productId) {
-    setCartItems(cartItems => cartItems.filter((product) => {
-      return product.id !== productId;
-    }));
-  }
-
   function clearCart() {
     setCartItems([]);
     clearInCartCount();
@@ -104,13 +72,14 @@ function App() {
   useEffect(() => {
     calculateTotalCartCount();
   }, [cartItems]);
+  
   return (
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" element={<Header totalCartCount={totalCartCount}/>} />
-          <Route path="/products/" element={<Products totalCartCount={totalCartCount} cartItems={cartItems} addItemToCart={addItemToCart} />} />
-          <Route path="/cart/" element={<Cart totalCartCount={totalCartCount} cartItems={cartItems} buy={buy} removeItemFromCart={removeItemFromCart} clearCart={clearCart} addInCartByOne={addInCartByOne} removeInCartByOne={removeInCartByOne} />} />
-          <Route path="/products/product/:productId" element={<ProductInfo totalCartCount={totalCartCount} cartItems={cartItems} addItemToCart={addItemToCart} /> } />
+            <Route exact path="/" element={<Header />} />
+            <Route path="/products/" element={<Products />} />
+            <Route path="/cart/" element={<Cart totalCartCount={totalCartCount} buy={buy} clearCart={clearCart} addInCartByOne={addInCartByOne} removeInCartByOne={removeInCartByOne} />} />
+            <Route path="/products/product/:productId" element={<ProductInfo totalCartCount={totalCartCount} cartItems={cartItems}/> } />
         </Routes>
       </BrowserRouter>
     );

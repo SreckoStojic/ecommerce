@@ -1,9 +1,8 @@
 import styles from './Header.module.css';
-import {
-  Link
-} from "react-router-dom";
-
-function Header({totalCartCount}) {
+import { Link } from "react-router-dom";
+import { useSelector } from 'react-redux';
+function Header() {
+    const totalCartCount = useSelector(state => state.cart.totalItemsCount);
     return (
         <nav>
             <ul>

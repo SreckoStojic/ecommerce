@@ -4,11 +4,11 @@ import { getProducts }  from '../../utils/products';
 import { useSearchParams } from "react-router-dom";
 import styles from './Products.module.css';
 
-function Products({totalCartCount, cartItems, addItemToCart}) {
+function Products() {
     const [searchParams, setSearchParams] = useSearchParams();
     return (
         <div>
-            <Header totalCartCount={totalCartCount} cartItems={cartItems}/>
+            <Header />
             <input className={styles['search']} placeholder="Search..." value={searchParams.get("search") || ''} 
             onChange={event => {
                 let search = event.target.value;
@@ -29,7 +29,7 @@ function Products({totalCartCount, cartItems, addItemToCart}) {
                     }
                 })
                 .map(p => 
-                    <Product cartItems={cartItems} product={p} key={p.id} handleClick={() => addItemToCart(p.id)}/>
+                    <Product product={p} key={p.id} />
                 )}
             </div>
         </div>

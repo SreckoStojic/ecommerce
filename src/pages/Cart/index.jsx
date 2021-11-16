@@ -1,10 +1,16 @@
 import CartItem from "../../components/CartItem"
 import Header from "../../components/Header";
 import styles from './Cart.module.css';
+import { useSelector } from "react-redux";
 
 const columns = ['ID', 'Name', 'Weight', 'Color', 'Count', 'Price', 'Remove'];
 
-function Cart({cartItems, totalCartCount, buy, removeInCartByOne, removeItemFromCart, addInCartByOne, clearCart}) {
+function Cart({buy, removeInCartByOne, addInCartByOne, clearCart}) {
+    const cartItems = useSelector(state => state.cart.cartItems);
+    cartItems.forEach(element => {
+        console.log(element.name);
+    });
+
     function calculateTotalPrice() {
         let total = 0;
         cartItems.forEach(item => {
@@ -14,7 +20,7 @@ function Cart({cartItems, totalCartCount, buy, removeInCartByOne, removeItemFrom
     }
     return (
         <div>
-            <Header totalCartCount={totalCartCount}/>
+            <Header />
             <table className={styles['table']}>
                 <thead>
                     <tr>
@@ -24,7 +30,7 @@ function Cart({cartItems, totalCartCount, buy, removeInCartByOne, removeItemFrom
                 <tbody>
                 {
                     cartItems.map(ci => 
-                        <CartItem cartItem={ci} key={ci.id}  handleClick={() => removeItemFromCart(ci.id)} addInCartByOne={() => addInCartByOne(ci.id) } removeInCartByOne={() => removeInCartByOne(ci.id)}/>
+                        <CartItem cartItem={ci} key={ci.id} addInCartByOne={() => addInCartByOne(ci.id) } removeInCartByOne={() => removeInCartByOne(ci.id)}/>
                     )
                 }
                 <tr className={styles['total-price-tr']}>
