@@ -11,3 +11,29 @@ export const removeItemFromCart = (productId) => {
         param: productId
     }
 }
+
+export const clearCart = () => {
+    return {
+        type: 'CLEAR_CART'
+    }
+}
+
+export const addInCartByOne = (productId) => {
+    return {
+        type: 'ADD_IN_CART_BY_ONE',
+        param: productId
+    }
+}
+
+export const removeInCartByOne = (productId) => {
+    return {
+        type: 'REMOVE_IN_CART_BY_ONE',
+        param: productId
+    }
+}
+
+export const buy = () => {
+    return {
+        type: 'BUY'
+    }
+}

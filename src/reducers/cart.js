@@ -1,8 +1,7 @@
-import { getProductById } from "../utils/products";
+import { getProductById, getProducts } from "../utils/products";
 
 const initialState = {
     cartItems: [],
-    totalItemsPrice: 0,
     totalItemsCount: 0
 }
 
@@ -10,13 +9,22 @@ const cartReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'ADD_ITEM_TO_CART':
             addItemToCart(state, action.param);
-            state.totalItemsCount += 1;
+            state.totalItemsCount = calculateTotalCartCount(state);
             return Object.assign({}, state);
         case 'REMOVE_ITEM_FROM_CART':
-            const newState = {}
-            const cItems = removeItemFromCart(state, action.param);
-            newState.cartItems = [...cItems];
-            return Object.assign({}, newState);
+            return Object.assign({}, removeItemFromCart(state, action.param));
+        case 'CLEAR_CART':
+            return Object.assign({}, clearCart(state));
+        case 'ADD_IN_CART_BY_ONE':
+            let newStateAddByOne = addInCartByOne(state, action.param);
+            newStateAddByOne.cartItems = [...newStateAddByOne.cartItems];
+            return Object.assign({}, newStateAddByOne);
+        case 'REMOVE_IN_CART_BY_ONE':
+            let newStateRemoveByOne = removeInCartByOne(state, action.param);
+            newStateRemoveByOne.cartItems = [...newStateRemoveByOne.cartItems];
+            return Object.assign({}, newStateRemoveByOne);
+        case 'BUY':
+            return Object.assign({}, buy(state));
         default:
             return state;
     }
@@ -52,10 +60,75 @@ function addItemToCart(state, productId) {
   }
 
   function removeItemFromCart(state, productId) {
-    state.cartItems.forEach(cartItem => {
-        if(Number(cartItem.id) === Number(productId)) {
-            state.cartItems.pop(cartItem);
-        }
+    state.cartItems = state.cartItems.filter(cartItem => {
+        return cartItem.id !== productId;
     });
-    return state.cartItems;
+    state.totalItemsCount = calculateTotalCartCount(state);
+    return state;
+  }
+
+  function clearCart(state) {
+    state.cartItems = [];
+    state.totalItemsCount = 0;
+    clearInCartCount();
+    return state;
+  }
+
+  function clearInCartCount() {
+    getProducts().forEach(p => {
+      p.inCart = 0;
+    });
+  }
+
+  function addInCartByOne(state, productId) {
+    state.cartItems.forEach(ci => {
+      if(ci.id === Number(productId)) {
+        ci.inCart += 1;
+      }
+    });
+    state.totalItemsCount = calculateTotalCartCount(state);
+    return state;
+  }
+
+  function removeInCartByOne(state, productId) {
+    state.cartItems.forEach(ci => {
+      if(ci.id === Number(productId)) {
+        ci.inCart -= 1;
+      }
+    });
+    state.totalItemsCount = calculateTotalCartCount(state);
+    return state;
+  }
+  
+  function buy(state) {
+    if(state.cartItems.length !== 0) {
+      alert("Thanks for buying our products. Receipt is sent to your email address.");
+      let newState = resetInCart(state);
+      clearCart(newState);
+      return newState;
+    } else {
+      alert("Cart is empty.");
+    }
+    return state;
+  }
+
+  function resetInCart(state) {
+    getProducts().forEach(product => {
+      state.cartItems.forEach(ci => {
+        if(product.id === ci.id){
+          product.count -= ci.inCart; 
+        }
+      });
+    });
+    return state;
+  }
+
+  function calculateTotalCartCount(state) {
+    let totalCartCnt = 0;
+    if(state.cartItems.length !== 0){
+        state.cartItems.forEach(ci => {
+            totalCartCnt += ci.inCart;
+        });
+    }
+    return totalCartCnt;
   }

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { addItemToCart } from '../../actions';
 import { useDispatch } from 'react-redux';
  
-function Product({product, handleClick}) {
+function Product({product}) {
     const dispatch = useDispatch();
     return (
         <div className={styles['product']}>
