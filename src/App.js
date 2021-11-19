@@ -1,9 +1,11 @@
 import './App.css';
 import Header from './components/Header';
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route} from 'react-router-dom'
 import Products from './pages/Products';
+import SignUp from './pages/SignUp';
 import ProductInfo from './pages/ProductInfo';
 import Cart from './pages/Cart';
+import Login from './pages/Login';
 
 function App() { 
   return (
@@ -12,6 +14,8 @@ function App() {
             <Route exact path="/" element={<Header />} />
             <Route path="/products/" element={<Products />} />
             <Route path="/cart/" element={<Cart />} />
+            <Route path="/signup/" element={<SignUp />} />
+            <Route path="/login/" element={<Login />} />
             <Route path="/products/product/:productId" element={<ProductInfo /> } />
         </Routes>
       </BrowserRouter>

@@ -5,9 +5,25 @@ ul {
     display: flex;
     gap: 10px;
     justify-content: space-between;
+    font-size: 20px;
+    font-weight: 500;
 }
 
-.header-div {
+.header-div-left {
     display: flex;
     gap: 30px;
+}
+
+.header-div-right {
+    display: flex;
+    gap: 30px;
+}
+
+.logout-btn {
+    width: 80px;
+    border-radius: 5px;
+    height: 30px;
+    margin-left: 20px;
+    background-color: peru;
+    font-size: 16px;
 }

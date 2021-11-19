@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { getProductById } from "../../utils/products";
 import Header from "../../components/Header";
 import { useDispatch } from 'react-redux';
-import { addItemToCart } from '../../actions'
+import { addItemToCart } from '../../actions/cart'
 
 
 function ProductInfo() {

@@ -1,5 +1,5 @@
 import styles from './CartItem.module.css';
-import { removeItemFromCart, addInCartByOne, removeInCartByOne } from '../../actions';
+import { removeItemFromCart, addInCartByOne, removeInCartByOne } from '../../actions/cart';
 import { useDispatch } from 'react-redux';
 
 function CartItem({cartItem}) {

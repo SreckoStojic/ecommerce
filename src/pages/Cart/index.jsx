@@ -2,7 +2,7 @@ import CartItem from "../../components/CartItem"
 import Header from "../../components/Header";
 import styles from './Cart.module.css';
 import { useSelector, useDispatch } from "react-redux";
-import { clearCart, buy } from '../../actions';
+import { clearCart, buy } from '../../actions/cart';
 
 const columns = ['ID', 'Name', 'Weight', 'Color', 'Count', 'Price', 'Remove'];
 
