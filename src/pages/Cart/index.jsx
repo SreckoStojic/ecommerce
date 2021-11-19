@@ -2,7 +2,7 @@ import CartItem from "../../components/CartItem"
 import Header from "../../components/Header";
 import styles from './Cart.module.css';
 import { useSelector, useDispatch } from "react-redux";
-import { clearCart, buy } from '../../actions/cart';
+import { clearCart, purchase } from '../../actions/cart';
 
 const columns = ['ID', 'Name', 'Weight', 'Color', 'Count', 'Price', 'Remove'];
 
@@ -45,7 +45,7 @@ function Cart() {
                     <td></td>
                     <td></td> 
                     <td></td>
-                    <td><button className={styles['buy-btn']} type="button" onClick={() => dispatch(buy())}>Buy</button></td>
+                    <td><button className={styles['buy-btn']} type="button" onClick={() => dispatch(purchase())}>Buy</button></td>
                 </tr>
                 </tbody>
             </table>

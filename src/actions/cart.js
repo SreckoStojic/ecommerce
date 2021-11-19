@@ -32,8 +32,8 @@ export const removeInCartByOne = (productId) => {
     }
 }
 
-export const buy = () => {
+export const purchase = () => {
     return {
-        type: 'BUY'
+        type: 'PURCHASE'
     }
 }

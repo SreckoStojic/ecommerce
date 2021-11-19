@@ -9,7 +9,7 @@
     margin-top: 7%;
 }
 
-form {
+.sign-up-form {
     width: 300px;
     height: 300px;
     border: 3px solid green;
@@ -37,6 +37,6 @@ body {
     background-color: green;
 }
 
-h2 {
+.h1 {
     color: green;
 }

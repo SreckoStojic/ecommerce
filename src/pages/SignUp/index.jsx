@@ -22,7 +22,7 @@ function SignUp() {
             console.error(error);
         }
         if(response.ok) {
-            alert(`Welcome, ${username}!`);
+            alert(`You have successfully registered, ${username}!`);
             navigate("/login");
         } else {
             alert(`Username ${username} is taken.`)
@@ -32,8 +32,8 @@ function SignUp() {
         <div>
             <Header />
             <div className={styles['sign-up']}>
-                <h2>Sign Up Here</h2>
-                <form>
+                <h1 className={styles['h1']}>Sign Up Here</h1>
+                <form className={styles['sign-up-form']}>
                     <input className={styles['sign-up-input']} type="text" value={username} onInput={e => setUsername(e.target.value)} name="username" placeholder="Username..." />
                     <input className={styles['sign-up-input']} type="password" value={password} onInput={e => setPassword(e.target.value)} name="password" placeholder="Password..." />
                     <button className={styles['sign-up-btn']} type="button" onClick={() => signUp(username, password)}>Sign Up</button>

@@ -23,8 +23,8 @@ const cartReducer = (state = initialState, action) => {
             let newStateRemoveByOne = removeInCartByOne(state, action.param);
             newStateRemoveByOne.cartItems = [...newStateRemoveByOne.cartItems];
             return Object.assign({}, newStateRemoveByOne);
-        case 'BUY':
-            return Object.assign({}, buy(state));
+        case 'PURCHASE':
+            return Object.assign({}, purchase(state));
         default:
             return state;
     }
@@ -100,7 +100,7 @@ function addItemToCart(state, productId) {
     return state;
   }
   
-  function buy(state) {
+  function purchase(state) {
     if(state.cartItems.length !== 0) {
       alert("Thanks for buying our products. Receipt is sent to your email address.");
       let newState = resetInCart(state);

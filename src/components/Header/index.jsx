@@ -1,26 +1,48 @@
 import styles from './Header.module.css';
 import { Link } from "react-router-dom";
 import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { logout } from '../../actions/auth';
+import { useNavigate } from "react-router-dom";
+
 
 function Header() {
-    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const totalCartCount = useSelector(state => state.cart.totalItemsCount);
-    const isLogged = useSelector(state => state.auth.isLogged);
-    const username = useSelector(state => state.auth.username);
+    const isLogged = localStorage.getItem('accessToken') === null ? false : true;
+    const username = localStorage.getItem('username');
     let login;
-    if(isLogged) {
+    let signup;
+    if(isLogged === true) {
         login = <li>{username}  <button onClick={() => handleLogout()} className={styles['logout-btn']}>Logout</button></li>;
     } else {
         login = <li><Link to="/login">Login</Link></li>
     }
 
-    function handleLogout() {
-        console.log("hi");
-        dispatch(logout());
-        localStorage.setItem("accessToken", '');
-        localStorage.setItem("refreshToken", '');
+    if(isLogged === false) {
+        signup = <Link to="/signup">Sign Up</Link>
+    } else {
+        signup = ''
+    }
+
+    async function handleLogout() {
+        try {
+            var response = await fetch('http://localhost:4000/logout', {
+                method: 'DELETE',
+                headers: { "Content-Type" : "application/json"},
+                body: JSON.stringify({
+                    token: localStorage.getItem('refreshToken')
+                })
+            });
+        } catch (error) {
+            console.error(error);
+        }
+        console.log(response);
+        if(response.ok) {
+            localStorage.clear();
+            window.location.reload(true);
+            navigate('/login');
+        } else {
+            alert(response.status);
+        }
     }
     return (
         <nav>
@@ -32,14 +54,15 @@ function Header() {
                     <li>
                         <Link to="/products">Products</Link>
                     </li>
+                    <li>
+                        <button onClick={() => localStorage.clear()} >Clear local storage</button>
+                    </li>
                 </div>
                 <div className={styles['header-div-right']}>
                     <li>
                         <Link to="/cart">Cart ({totalCartCount})</Link>
                     </li>
-                    <li>
-                        <Link to="/signup">Sign Up</Link>
-                    </li>
+                    {signup}
                     {login}
                 </div>
             </ul>
