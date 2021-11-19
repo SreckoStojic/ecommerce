@@ -25,8 +25,8 @@ function Login() {
             localStorage.setItem("username", username);
             localStorage.setItem("accessToken", data.accessToken);
             localStorage.setItem("refreshToken", data.refreshToken);
-            window.location.reload(true);
             navigate('/products');
+            window.location.reload(true);
         } else {
             alert(`Invalid username or password. Try again!`)
         }
