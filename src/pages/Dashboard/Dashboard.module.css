@@ -33,17 +33,3 @@
 span {
     font-weight: 600;
 }
-
-.clear-all-btn {
-    width: 80px;
-    background-color: red;
-    color: white;
-    font-size: large;
-}
-
-.buy-btn {
-    width: 100px;
-    background-color: green;
-    color: white;
-    font-size: large;
-}

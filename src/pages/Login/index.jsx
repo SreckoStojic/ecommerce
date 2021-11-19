@@ -1,7 +1,8 @@
 import Header from '../../components/Header';
 import styles from './Login.module.css';
 import { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import { getPurchases } from '../../utils/apiFunctions'; 
 
 function Login() {
     const navigate = useNavigate();
@@ -25,6 +26,7 @@ function Login() {
             localStorage.setItem("username", username);
             localStorage.setItem("accessToken", data.accessToken);
             localStorage.setItem("refreshToken", data.refreshToken);
+            getPurchases();
             navigate('/products');
             window.location.reload(true);
         } else {

@@ -12,7 +12,7 @@ function Header() {
     let login;
     let signup;
     if(isLogged === true) {
-        login = <li>{username}  <button onClick={() => handleLogout()} className={styles['logout-btn']}>Logout</button></li>;
+        login = <li className={styles['profile-username']}>{username}  <button onClick={() => handleLogout()} className={styles['logout-btn']}>Logout</button></li>;
     } else {
         login = <li><Link to="/login">Login</Link></li>
     }
@@ -35,11 +35,10 @@ function Header() {
         } catch (error) {
             console.error(error);
         }
-        console.log(response);
         if(response.ok) {
             localStorage.clear();
-            window.location.reload(true);
             navigate('/login');
+            window.location.reload(true);
         } else {
             alert(response.status);
         }
@@ -61,6 +60,9 @@ function Header() {
                 <div className={styles['header-div-right']}>
                     <li>
                         <Link to="/cart">Cart ({totalCartCount})</Link>
+                    </li>
+                    <li>
+                        <Link to="/dashboard">Dashboard</Link>
                     </li>
                     {signup}
                     {login}
