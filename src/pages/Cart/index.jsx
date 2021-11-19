@@ -4,7 +4,7 @@ import styles from './Cart.module.css';
 import { useSelector, useDispatch } from "react-redux";
 import { clearCart, purchase } from '../../actions/cart';
 import { useNavigate } from "react-router";
-import { refreshTokenFunction, getPurchases } from '../../utils/apiFunctions';
+import { getPurchases, refreshTokenFunction } from "../../utils/apiFunctions";
 
 const columns = ['ID', 'Name', 'Weight', 'Color', 'Count', 'Price', 'Remove'];
 
@@ -41,6 +41,7 @@ function Cart() {
             navigate('/products');
         } else {
             refreshTokenFunction(navigate);
+            handlePurchase();
         }
     }
     return (

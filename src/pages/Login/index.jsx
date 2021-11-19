@@ -8,6 +8,7 @@ function Login() {
     const navigate = useNavigate();
     let [username, setUsername] = useState('');
     let [password, setPassword] = useState('');
+    
     async function handleLogin(username, password){
         try {
             var response = await fetch('http://localhost:4000/login', {
