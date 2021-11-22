@@ -11,7 +11,7 @@ function Login() {
     
     async function handleLogin(username, password){
         try {
-            var response = await fetch('http://localhost:4000/login', {
+            var response = await fetch(`${process.env.REACT_APP_AUTH_API}/login`, {
                 method: 'POST',
                 headers: { "Content-Type" : "application/json"},
                 body: JSON.stringify({

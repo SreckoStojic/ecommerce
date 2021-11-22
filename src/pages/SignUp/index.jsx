@@ -10,7 +10,7 @@ function SignUp() {
     
     async function signUp(username, password){
         try {
-            var response = await fetch('http://localhost:3001/users', {
+            var response = await fetch(`${process.env.REACT_APP_API}/users`, {
                 method: 'POST',
                 headers: { "Content-Type" : "application/json"},
                 body: JSON.stringify({

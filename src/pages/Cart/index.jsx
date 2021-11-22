@@ -22,7 +22,7 @@ function Cart() {
 
     async function handlePurchase() {
         try {
-            var response = await fetch('http://localhost:3001/purchases', {
+            var response = await fetch(`${process.env.REACT_APP_API}/purchases`, {
                 method: 'POST',
                 headers: { 
                     "Content-Type" : "application/json",

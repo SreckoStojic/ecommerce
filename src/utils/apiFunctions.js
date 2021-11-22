@@ -1,6 +1,6 @@
 export async function getPurchases() {
     try {
-        var response = await fetch('http://localhost:3001/purchases', {
+        var response = await fetch(`${process.env.REACT_APP_API}/purchases`, {
             method: 'GET',
             headers: { 
                 "Authorization" : `Bearer ${localStorage.getItem('accessToken')}`
@@ -27,7 +27,7 @@ export async function getPurchases() {
 
 export async function refreshTokenFunction(navigate) {
     try {
-        var response = await fetch('http://localhost:4000/token', {
+        var response = await fetch(`${process.env.REACT_APP_AUTH_API}/token`, {
             method: 'POST',
             headers: { 
                 "Content-Type": "application/json"
