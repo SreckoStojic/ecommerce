@@ -31,3 +31,14 @@ ul {
 .profile-username {
     color: blue;
 }
+
+.lang {
+    width: 30px;
+    border-radius: 0px;
+    background-color: brown;
+}
+
+.lang-div {
+    display: flex;
+    gap: 1px;
+}

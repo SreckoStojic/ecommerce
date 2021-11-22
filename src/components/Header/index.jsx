@@ -1,10 +1,12 @@
 import styles from './Header.module.css';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 
 function Header() {
+    const { t, i18n } = useTranslation();
     const navigate = useNavigate();
     const totalCartCount = useSelector(state => state.cart.totalItemsCount);
     const isLogged = localStorage.getItem('accessToken') === null ? false : true;
@@ -12,15 +14,20 @@ function Header() {
     let login;
     let signup;
     if(isLogged === true) {
-        login = <li className={styles['profile-username']}>{username}  <button onClick={() => handleLogout()} className={styles['logout-btn']}>Logout</button></li>;
+        login = <li className={styles['profile-username']}>{username}  <button onClick={() => handleLogout()} className={styles['logout-btn']}>{t('logout')}</button></li>;
     } else {
-        login = <li><Link to="/login">Login</Link></li>
+        login = <li><Link to="/login">{t('login')}</Link></li>
     }
 
     if(isLogged === false) {
-        signup = <Link to="/signup">Sign Up</Link>
+        signup = <Link to="/signup">{t('signup')}</Link>
     } else {
         signup = ''
+    }
+
+    function changLang(lang) {
+        i18n.changeLanguage(lang);
+        localStorage.setItem('lang', lang);
     }
 
     async function handleLogout() {
@@ -48,21 +55,29 @@ function Header() {
             <ul>
                 <div className={styles['header-div-left']}>
                     <li>
-                        <Link to="/">Home</Link>
+                        <Link to="/">{t('home')}</Link>
                     </li>
                     <li>
-                        <Link to="/products">Products</Link>
+                        <Link to="/products">{t('products')}</Link>
                     </li>
                     <li>
                         <button onClick={() => localStorage.clear()} >Clear local storage</button>
                     </li>
+                    <div className={styles['lang-div']}>
+                        <li>
+                            <button className={styles['lang']} onClick={() => changLang('en')}>en</button>
+                        </li>
+                        <li>
+                            <button className={styles['lang']} onClick={() => changLang('srb')}>srb</button>
+                        </li>
+                    </div>
                 </div>
                 <div className={styles['header-div-right']}>
                     <li>
-                        <Link to="/cart">Cart ({totalCartCount})</Link>
+                        <Link to="/cart">{t('cart')} ({totalCartCount})</Link>
                     </li>
                     <li>
-                        <Link to="/dashboard">Dashboard</Link>
+                        <Link to="/dashboard">{t('dashboard')}</Link>
                     </li>
                     {signup}
                     {login}

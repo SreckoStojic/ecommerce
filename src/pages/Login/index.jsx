@@ -3,8 +3,10 @@ import styles from './Login.module.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getPurchases } from '../../utils/apiFunctions'; 
+import { useTranslation } from 'react-i18next';
 
 function Login() {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     let [username, setUsername] = useState('');
     let [password, setPassword] = useState('');
@@ -38,11 +40,11 @@ function Login() {
         <div>
             <Header />
             <div className={styles['sign-up']}>
-                <h1 className={styles['h1']}>Login</h1>
+                <h1 className={styles['h1']}>{t('login')}</h1>
                 <form className={styles['login-form']}>
-                    <input className={styles['sign-up-input']} type="text" value={username} onInput={e => setUsername(e.target.value)} name="username" placeholder="Username..." />
-                    <input className={styles['sign-up-input']} type="password" value={password} onInput={e => setPassword(e.target.value)} name="password" placeholder="Password..." />
-                    <button className={styles['login-btn']} type="button" onClick={() => handleLogin(username, password)}>Login</button>
+                    <input className={styles['sign-up-input']} type="text" value={username} onInput={e => setUsername(e.target.value)} name="username" placeholder={t('username')+'...'} />
+                    <input className={styles['sign-up-input']} type="password" value={password} onInput={e => setPassword(e.target.value)} name="password" placeholder={t('password')+'...'} />
+                    <button className={styles['login-btn']} type="button" onClick={() => handleLogin(username, password)}>{t('login')}</button>
                 </form>
             </div>
         </div>

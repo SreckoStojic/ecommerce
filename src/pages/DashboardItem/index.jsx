@@ -1,12 +1,14 @@
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import Header from '../../components/Header';
 import styles from './DashboardItem.module.css';
 
-const columns = ['ID', 'Name', 'Weight', 'Color', 'Amount', 'Price'];
 function DashboardItem() {
+    const { t } = useTranslation();
+    const columns = ['ID', t('name'), t('weight'), t('color'), t('amount'), t('price')];
     let { purchaseId } = useParams();
     let dashboardItem = getDashboardItemById(purchaseId);
-
+    
     function getDashboardItemById(id) {
         let products = [];
         let data = JSON.parse(localStorage.getItem('data'));
@@ -52,7 +54,7 @@ function DashboardItem() {
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td><span>Total Price:</span></td> 
+                        <td><span>{t('totalPrice')}</span></td> 
                         <td><span>{calculateTotalPrice()} RSD</span></td>
                     </tr>
                 </tbody>

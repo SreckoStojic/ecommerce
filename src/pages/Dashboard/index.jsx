@@ -1,12 +1,13 @@
 import styles from './Dashboard.module.css';
 import Header from "../../components/Header";
 import DashboardList from '../../components/DashboardList';
-
-const columns = ['ID', 'Amount', 'Created At', 'Details'];
+import { useTranslation } from 'react-i18next';
 
 function Dashboard() {
+    const { t } = useTranslation();
+    const columns = ['ID', t('amount'), t('createdAt'), t('details')];
     let data = JSON.parse(localStorage.getItem('data'));
-
+    
     function calculateAmount(products) {
         let total = 0;
         products.forEach(product => {

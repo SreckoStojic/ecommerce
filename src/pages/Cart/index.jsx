@@ -5,10 +5,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { clearCart, purchase } from '../../actions/cart';
 import { useNavigate } from "react-router";
 import { getPurchases, refreshTokenFunction } from "../../utils/apiFunctions";
-
-const columns = ['ID', 'Name', 'Weight', 'Color', 'Count', 'Price', 'Remove'];
+import { useTranslation } from "react-i18next";
 
 function Cart() {
+    const { t } = useTranslation();
+    const columns = ['ID', t('name'), t('weight'), t('color'), t('count'), t('price'), t('remove')];
     const navigate = useNavigate();
     const cartItems = useSelector(state => state.cart.cartItems);
     const dispatch = useDispatch();
@@ -62,9 +63,9 @@ function Cart() {
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td><span>Total Price:</span></td> 
+                    <td><span>{t('totalPrice')}:</span></td> 
                     <td><span>{calculateTotalPrice()} RSD</span></td>
-                    <td><button className={styles['clear-all-btn']} type="button" onClick={() => dispatch(clearCart())}>Clear All</button></td>
+                    <td><button className={styles['clear-all-btn']} type="button" onClick={() => dispatch(clearCart())}>{t('clearAll')}</button></td>
                 </tr>
                 <tr className={styles['total-price-tr']}>
                     <td></td>
@@ -73,7 +74,7 @@ function Cart() {
                     <td></td>
                     <td></td> 
                     <td></td>
-                    <td><button className={styles['buy-btn']} type="button" onClick={() => handlePurchase()}>Purchase</button></td>
+                    <td><button className={styles['buy-btn']} type="button" onClick={() => handlePurchase()}>{t('purchase')}</button></td>
                 </tr>
                 </tbody>
             </table>
