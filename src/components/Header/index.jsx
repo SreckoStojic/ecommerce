@@ -13,16 +13,12 @@ function Header() {
     const username = localStorage.getItem('username');
     let login;
     let signup;
-    if(isLogged === true) {
+    if(isLogged) {
         login = <li className={styles['profile-username']}>{username}  <button onClick={() => handleLogout()} className={styles['logout-btn']}>{t('logout')}</button></li>;
+        signup = '';
     } else {
-        login = <li><Link to="/login">{t('login')}</Link></li>
-    }
-
-    if(isLogged === false) {
-        signup = <Link to="/signup">{t('signup')}</Link>
-    } else {
-        signup = ''
+        login = <li><Link to="/login">{t('login')}</Link></li>;
+        signup = <Link to="/signup">{t('signup')}</Link>;
     }
 
     function changLang(lang) {

@@ -8,19 +8,19 @@ const initialState = {
 const cartReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'ADD_ITEM_TO_CART':
-            addItemToCart(state, action.param);
+            addItemToCart(state, action.payload);
             state.totalItemsCount = calculateTotalCartCount(state);
             return Object.assign({}, state);
         case 'REMOVE_ITEM_FROM_CART':
-            return Object.assign({}, removeItemFromCart(state, action.param));
+            return Object.assign({}, removeItemFromCart(state, action.payload));
         case 'CLEAR_CART':
             return Object.assign({}, clearCart(state));
         case 'ADD_IN_CART_BY_ONE':
-            let newStateAddByOne = addInCartByOne(state, action.param);
+            let newStateAddByOne = addInCartByOne(state, action.payload);
             newStateAddByOne.cartItems = [...newStateAddByOne.cartItems];
             return Object.assign({}, newStateAddByOne);
         case 'REMOVE_IN_CART_BY_ONE':
-            let newStateRemoveByOne = removeInCartByOne(state, action.param);
+            let newStateRemoveByOne = removeInCartByOne(state, action.payload);
             newStateRemoveByOne.cartItems = [...newStateRemoveByOne.cartItems];
             return Object.assign({}, newStateRemoveByOne);
         case 'PURCHASE':

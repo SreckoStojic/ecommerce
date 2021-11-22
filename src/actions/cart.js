@@ -1,14 +1,14 @@
 export const addItemToCart = (productId) => {
     return {
         type: 'ADD_ITEM_TO_CART',
-        param: productId
+        payload: productId
     }
 }
 
 export const removeItemFromCart = (productId) => {
     return {
         type: 'REMOVE_ITEM_FROM_CART',
-        param: productId
+        payload: productId
     }
 }
 
@@ -21,14 +21,14 @@ export const clearCart = () => {
 export const addInCartByOne = (productId) => {
     return {
         type: 'ADD_IN_CART_BY_ONE',
-        param: productId
+        payload: productId
     }
 }
 
 export const removeInCartByOne = (productId) => {
     return {
         type: 'REMOVE_IN_CART_BY_ONE',
-        param: productId
+        payload: productId
     }
 }
 
