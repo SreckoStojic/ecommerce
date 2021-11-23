@@ -6,7 +6,7 @@ const resources = {
         "cart" : "Cart",
         "signup" : "Sign up",
         "login" : "Login",
-        "dashboard" : "dashboard",
+        "dashboard" : "Dashboard",
         "logout" : "Logout",
         "username" : "Username",
         "password" : "Password",
@@ -26,6 +26,7 @@ const resources = {
         "details" : "Details",
         "homeH1" : "Don't let your dreams be dreams!",
         "homeH2" : "Buy everything!",
+        "clearLocalStorage" : "Clear Local Storage"
       }
     },
     srb: {
@@ -55,6 +56,7 @@ const resources = {
         "details" : "Detalji",
         "homeH1" : "Ne dozvoli da ti snovi budu samo snovi!",
         "homeH2" : "Kupi sve!",
+        "clearLocalStorage" : "Obriši lokalni storidz"
       }
     }
 }

@@ -47,3 +47,29 @@ export async function refreshTokenFunction(navigate) {
         navigate('/login');
     }
 }
+
+export async function handleLogin(username, password, navigate){
+    try {
+        var response = await fetch(`${process.env.REACT_APP_AUTH_API}/login`, {
+            method: 'POST',
+            headers: { "Content-Type" : "application/json"},
+            body: JSON.stringify({
+                username: username,
+                password: password
+            })
+        });
+    } catch (error) {
+        console.error(error);
+    }
+    if(response.ok) {
+        const data = await response.json();
+        localStorage.setItem("username", username);
+        localStorage.setItem("accessToken", data.accessToken);
+        localStorage.setItem("refreshToken", data.refreshToken);
+        getPurchases();
+        navigate('/products');
+        window.location.reload(true);
+    } else {
+        alert(`Invalid username or password. Try again!`)
+    }
+}

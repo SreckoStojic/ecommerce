@@ -1,9 +1,9 @@
+import React from 'react';
 import styles from './Header.module.css';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-
 
 function Header() {
     const { t, i18n } = useTranslation();
@@ -57,7 +57,7 @@ function Header() {
                         <Link to="/products">{t('products')}</Link>
                     </li>
                     <li>
-                        <button onClick={() => localStorage.clear()} >Clear local storage</button>
+                        <button onClick={() => localStorage.clear()} >{t('clearLocalStorage')}</button>
                     </li>
                     <div className={styles['lang-div']}>
                         <li>

@@ -17,7 +17,8 @@ i18n
     fallbackLng: ['en', 'srb'],
     interpolation: {
       escapeValue: false
-    }
+    },
+    react: { useSuspense: false }
   });
 
 const store = createStore(allReducers,

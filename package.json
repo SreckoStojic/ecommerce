@@ -21,7 +21,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest --watchAll",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -43,6 +43,10 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-syntax-jsx": "^7.16.0",
     "@babel/preset-es2015": "^7.0.0-beta.53"
+  },
+  "jest": {
+    "moduleNameMapper": { "\\.(css|less)$": "<rootDir>/src/__mocks__/styleMock.js" }
   }
 }
