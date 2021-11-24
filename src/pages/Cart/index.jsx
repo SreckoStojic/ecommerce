@@ -2,10 +2,10 @@ import CartItem from "../../components/CartItem"
 import Header from "../../components/Header";
 import styles from './Cart.module.css';
 import { useSelector, useDispatch } from "react-redux";
-import { clearCart, purchase } from '../../actions/cart';
+import { clearCart } from '../../actions/cart';
 import { useNavigate } from "react-router";
-import { getPurchases, refreshTokenFunction } from "../../utils/apiFunctions";
 import { useTranslation } from "react-i18next";
+import { handlePurchase } from '../../utils/apiFunctions';
 
 function Cart() {
     const { t } = useTranslation();
@@ -50,7 +50,7 @@ function Cart() {
                     <td></td>
                     <td></td> 
                     <td></td>
-                    <td><button className={styles['buy-btn']} type="button" onClick={() => handlePurchase(navigate)}>{t('purchase')}</button></td>
+                    <td><button className={styles['buy-btn']} type="button" onClick={() => handlePurchase(dispatch, navigate, cartItems)}>{t('purchase')}</button></td>
                 </tr>
                 </tbody>
             </table>

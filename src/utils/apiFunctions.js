@@ -1,3 +1,6 @@
+import { purchase } from '../actions/cart';
+import { login, logout } from '../actions/login';
+
 export async function getPurchases() {
     try {
         var response = await fetch(`${process.env.REACT_APP_API}/purchases`, {
@@ -48,7 +51,7 @@ export async function refreshTokenFunction(navigate) {
     }
 }
 
-export async function handleLogin(username, password, navigate){
+export async function handleLogin(dispatch, username, password, navigate){
     try {
         var response = await fetch(`${process.env.REACT_APP_AUTH_API}/login`, {
             method: 'POST',
@@ -63,12 +66,13 @@ export async function handleLogin(username, password, navigate){
     }
     if(response.ok) {
         const data = await response.json();
+        dispatch(login());
+        localStorage.setItem("isLogged", true);
         localStorage.setItem("username", username);
         localStorage.setItem("accessToken", data.accessToken);
         localStorage.setItem("refreshToken", data.refreshToken);
         getPurchases();
         navigate('/products');
-        window.location.reload(true);
     } else {
         alert(`Invalid username or password. Try again!`)
     }
@@ -95,7 +99,7 @@ export async function signUp(username, password, navigate){
     }
 }
 
-export async function handlePurchase(navigate) {
+export async function handlePurchase(dispatch, navigate, cartItems) {
     try {
         var response = await fetch(`${process.env.REACT_APP_API}/purchases`, {
             method: 'POST',
@@ -117,5 +121,26 @@ export async function handlePurchase(navigate) {
     } else {
         refreshTokenFunction(navigate);
         handlePurchase();
+    }
+}
+
+export async function handleLogout(dispatch, navigate) {
+    try {
+        var response = await fetch('http://localhost:4000/logout', {
+            method: 'DELETE',
+            headers: { "Content-Type" : "application/json"},
+            body: JSON.stringify({
+                token: localStorage.getItem('refreshToken')
+            })
+        });
+    } catch (error) {
+        console.error(error);
+    }
+    if(response.ok) {
+        dispatch(logout());
+        localStorage.clear();
+        navigate('/login');
+    } else {
+        alert(response.status);
     }
 }
