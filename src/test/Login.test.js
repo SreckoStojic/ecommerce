@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, fireEvent, screen, waitFor  } from '@testing-library/react';
 import Login from '../pages/Login';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -20,7 +20,7 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('description', () => {
-    const mockLogin = jest.fn(() => Promise.resolve());
+    const mockLogin = jest.fn();
     const {container} = render(
         <BrowserRouter>
             <Provider store={store}>
@@ -31,18 +31,18 @@ describe('description', () => {
         console.log(container.innerHTML);
         //render(container);    
     });
-    test('Test if username and password are valid.', () => {
+    test('Test if username and password are valid.', async () => {
         const { getByTestId } = render(
             <BrowserRouter>
                 <Provider store={store}>
                     <Login handleLogin={mockLogin} />
                 </Provider>
             </BrowserRouter>);
-        fireEvent.click(screen.getByTestId('login-btn-id'));
-        expect(mockLogin).toBeCalledWith('Test', 'test');
+        fireEvent.input(getByTestId('username-input-id'), {target : {value : 'Test'}});
+        fireEvent.input(getByTestId('password-input-id'), {target : {value : 'test'}});
+        fireEvent.click(getByTestId('login-btn-id'));
+        await waitFor(() => expect(mockLogin).toBeCalledTimes(1));
+        expect(mockLogin).toBeCalledWith('Test', 'test', mockedUsedNavigate);
         expect(mockLogin).toHaveBeenCalledTimes(1);
-        
-        
-        
     });    
 });

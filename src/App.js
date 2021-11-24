@@ -8,6 +8,7 @@ import Cart from './pages/Cart';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import DashboardItem from './pages/DashboardItem';
+import { handleLogin } from './utils/apiFunctions';
 
 function App() {
   const isLogged = localStorage.getItem('username') === null ? false : true;
@@ -19,7 +20,7 @@ function App() {
             <Route path="/cart/" element={isLogged ? <Cart /> : <Navigate to="/login"/>} />
             <Route path="/dashboard/" element={isLogged ? <Dashboard /> : <Navigate to="/login"/>} />
             <Route path="/signup/" element={<SignUp />} />
-            <Route path="/login/" element={<Login />} />
+            <Route path="/login/" element={<Login handleLogin={handleLogin} />} />
             <Route path="/products/product/:productId" element={<ProductInfo /> } />
             <Route path="/dashboard/purchases/:purchaseId" element={<DashboardItem /> } />
         </Routes>
