@@ -21,7 +21,7 @@ function Login() {
                 <form className={styles['login-form']}>
                     <input className={styles['sign-up-input']} type="text" value={username} onInput={e => setUsername(e.target.value)} name="username" placeholder={t('username')+'...'} />
                     <input className={styles['sign-up-input']} type="password" value={password} onInput={e => setPassword(e.target.value)} name="password" placeholder={t('password')+'...'} />
-                    <button className={styles['login-btn']} type="button" onClick={() => handleLogin(username, password, navigate)}>{t('login')}</button>
+                    <button data-testid="login-btn-id" className={styles['login-btn']} type="button" onClick={() => handleLogin(username, password, navigate)}>{t('login')}</button>
                 </form>
             </div>
         </div>
