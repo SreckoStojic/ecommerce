@@ -21,30 +21,6 @@ function Cart() {
         return total;
     }
 
-    async function handlePurchase() {
-        try {
-            var response = await fetch(`${process.env.REACT_APP_API}/purchases`, {
-                method: 'POST',
-                headers: { 
-                    "Content-Type" : "application/json",
-                    "Authorization" : `Bearer ${localStorage.getItem('accessToken')}`
-                },
-                body: JSON.stringify({
-                    products: cartItems
-                })
-            });
-        } catch (error) {
-            console.error(error);
-        }
-        if(response.ok) {
-            dispatch(purchase());
-            getPurchases();
-            navigate('/products');
-        } else {
-            refreshTokenFunction(navigate);
-            handlePurchase();
-        }
-    }
     return (
         <div>
             <Header />
@@ -74,7 +50,7 @@ function Cart() {
                     <td></td>
                     <td></td> 
                     <td></td>
-                    <td><button className={styles['buy-btn']} type="button" onClick={() => handlePurchase()}>{t('purchase')}</button></td>
+                    <td><button className={styles['buy-btn']} type="button" onClick={() => handlePurchase(navigate)}>{t('purchase')}</button></td>
                 </tr>
                 </tbody>
             </table>

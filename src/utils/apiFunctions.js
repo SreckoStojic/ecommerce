@@ -73,3 +73,49 @@ export async function handleLogin(username, password, navigate){
         alert(`Invalid username or password. Try again!`)
     }
 }
+
+export async function signUp(username, password, navigate){
+    try {
+        var response = await fetch(`${process.env.REACT_APP_API}/users`, {
+            method: 'POST',
+            headers: { "Content-Type" : "application/json"},
+            body: JSON.stringify({
+                username: username,
+                password: password
+            })
+        });
+    } catch (error) {
+        console.error(error);
+    }
+    if(response.ok) {
+        alert(`You have successfully registered, ${username}!`);
+        navigate("/login");
+    } else {
+        alert(`Username ${username} is taken.`)
+    }
+}
+
+export async function handlePurchase(navigate) {
+    try {
+        var response = await fetch(`${process.env.REACT_APP_API}/purchases`, {
+            method: 'POST',
+            headers: { 
+                "Content-Type" : "application/json",
+                "Authorization" : `Bearer ${localStorage.getItem('accessToken')}`
+            },
+            body: JSON.stringify({
+                products: cartItems
+            })
+        });
+    } catch (error) {
+        console.error(error);
+    }
+    if(response.ok) {
+        dispatch(purchase());
+        getPurchases();
+        navigate('/products');
+    } else {
+        refreshTokenFunction(navigate);
+        handlePurchase();
+    }
+}
