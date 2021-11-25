@@ -1,7 +1,7 @@
 import { purchase } from '../actions/cart';
 import { login, logout } from '../actions/login';
 
-export async function getPurchases() {
+export async function getPurchases(navigate) {
     try {
         var response = await fetch(`${process.env.REACT_APP_API}/purchases`, {
             method: 'GET',
@@ -24,7 +24,7 @@ export async function getPurchases() {
         });
         localStorage.setItem('data', JSON.stringify(dataForLocalStorage));
     } else {
-        refreshTokenFunction();
+        refreshTokenFunction(navigate);
     }
 }
 
@@ -45,7 +45,7 @@ export async function refreshTokenFunction(navigate) {
     if(response.ok) {
         let data = await response.json();
         localStorage.setItem("accessToken", data.accessToken);
-        getPurchases();
+        getPurchases(navigate);
     } else {
         navigate('/login');
     }
@@ -71,7 +71,7 @@ export async function handleLogin(dispatch, username, password, navigate){
         localStorage.setItem("username", username);
         localStorage.setItem("accessToken", data.accessToken);
         localStorage.setItem("refreshToken", data.refreshToken);
-        getPurchases();
+        getPurchases(navigate);
         navigate('/products');
     } else {
         alert(`Invalid username or password. Try again!`)
@@ -116,11 +116,11 @@ export async function handlePurchase(dispatch, navigate, cartItems) {
     }
     if(response.ok) {
         dispatch(purchase());
-        getPurchases();
+        getPurchases(navigate);
         navigate('/products');
     } else {
         refreshTokenFunction(navigate);
-        handlePurchase();
+        handlePurchase(dispatch, navigate, cartItems);
     }
 }
 
