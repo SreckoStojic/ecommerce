@@ -1,5 +1,7 @@
 import { getProductById, getProducts } from "../utils/products";
 import { ICartItem } from '../components/CartItem';
+import { Action } from "redux";
+import { PayloadAction } from "@reduxjs/toolkit";
 
 interface IStateCart { 
   cartItems: ICartItem[];
@@ -11,7 +13,7 @@ const initialState : IStateCart = {
     totalItemsCount: 0
 }
 
-const cartReducer = (state = initialState, action : any) => {
+const cartReducer = (state = initialState, action : PayloadAction<number>) => {
     switch (action.type) {
         case 'ADD_ITEM_TO_CART':
             addItemToCart(state, action.payload);
