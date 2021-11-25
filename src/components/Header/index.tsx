@@ -1,29 +1,30 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import styles from './Header.module.css';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { handleLogout } from '../../utils/apiFunctions';
+import { RootState } from '../../reducers/index';
 
-function Header() {
+function Header() : ReactElement {
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const totalCartCount = useSelector(state => state.cart.totalItemsCount);
-    const isLogged = localStorage.getItem('accessToken') === null ? false : true;
-    const username = localStorage.getItem('username');
-    let login;
-    let signup;
+    const totalCartCount : number = useSelector((state : RootState) => state.cart.totalItemsCount);
+    const isLogged : boolean = localStorage.getItem('accessToken') === null ? false : true;
+    const username : string | null = localStorage.getItem('username');
+    let login : JSX.Element;
+    let signup : JSX.Element;
     if(isLogged) {
         login = <li className={styles['profile-username']}>{username}  <button onClick={() => handleLogout(dispatch, navigate)} className={styles['logout-btn']}>{t('logout')}</button></li>;
-        signup = '';
+        signup = <li></li>;
     } else {
         login = <li><Link to="/login">{t('login')}</Link></li>;
-        signup = <Link to="/signup">{t('signup')}</Link>;
+        signup = <li><Link to="/signup">{t('signup')}</Link></li>;
     }
 
-    function changLang(lang) {
+    function changeLang(lang : string) : void {
         i18n.changeLanguage(lang);
         localStorage.setItem('lang', lang);
     }
@@ -43,10 +44,10 @@ function Header() {
                     </li>
                     <div className={styles['lang-div']}>
                         <li>
-                            <button className={styles['lang']} onClick={() => changLang('en')}>en</button>
+                            <button className={styles['lang']} onClick={() => changeLang('en')}>en</button>
                         </li>
                         <li>
-                            <button className={styles['lang']} onClick={() => changLang('srb')}>srb</button>
+                            <button className={styles['lang']} onClick={() => changeLang('srb')}>srb</button>
                         </li>
                     </div>
                 </div>

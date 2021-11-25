@@ -1,9 +1,12 @@
 import { purchase } from '../actions/cart';
 import { login, logout } from '../actions/login';
+import { ICartItem } from '../components/CartItem';
+import { IDashboardListItem } from '../components/DashboardList';
 
-export async function getPurchases() {
+export async function getPurchases(navigate : any) : Promise<void> {
+    let response : Response | null = null;
     try {
-        var response = await fetch(`${process.env.REACT_APP_API}/purchases`, {
+        response  = await fetch(`${process.env.REACT_APP_API}/purchases`, {
             method: 'GET',
             headers: { 
                 "Authorization" : `Bearer ${localStorage.getItem('accessToken')}`
@@ -12,10 +15,10 @@ export async function getPurchases() {
     } catch (error) {
         console.error(error);
     }
-    if(response.ok){
-        let data = await response.json();
-        let dataForLocalStorage = [];
-        data.forEach(dataItem => {
+    if(response!.ok){
+        let data = await response!.json();
+        let dataForLocalStorage : IDashboardListItem[] = [];
+        data.forEach((dataItem : IDashboardListItem) => {
             dataForLocalStorage.push({
                 id: dataItem.id,
                 products: dataItem.products,
@@ -24,13 +27,14 @@ export async function getPurchases() {
         });
         localStorage.setItem('data', JSON.stringify(dataForLocalStorage));
     } else {
-        refreshTokenFunction();
+        refreshTokenFunction(navigate);
     }
 }
 
-export async function refreshTokenFunction(navigate) {
+export async function refreshTokenFunction(navigate : any) : Promise<void> {
+    let response : Response | null = null;
     try {
-        var response = await fetch(`${process.env.REACT_APP_AUTH_API}/token`, {
+        response = await fetch(`${process.env.REACT_APP_AUTH_API}/token`, {
             method: 'POST',
             headers: { 
                 "Content-Type": "application/json"
@@ -42,18 +46,19 @@ export async function refreshTokenFunction(navigate) {
     } catch (error) {
         console.error(error);
     }
-    if(response.ok) {
-        let data = await response.json();
+    if(response!.ok) {
+        let data = await response!.json();
         localStorage.setItem("accessToken", data.accessToken);
-        getPurchases();
+        getPurchases(navigate);
     } else {
         navigate('/login');
     }
 }
 
-export async function handleLogin(dispatch, username, password, navigate){
+export async function handleLogin(dispatch : any, username : string, password : string, navigate : any) : Promise<void> {
+    let response : Response | null = null;
     try {
-        var response = await fetch(`${process.env.REACT_APP_AUTH_API}/login`, {
+        response = await fetch(`${process.env.REACT_APP_AUTH_API}/login`, {
             method: 'POST',
             headers: { "Content-Type" : "application/json"},
             body: JSON.stringify({
@@ -64,23 +69,24 @@ export async function handleLogin(dispatch, username, password, navigate){
     } catch (error) {
         console.error(error);
     }
-    if(response.ok) {
-        const data = await response.json();
+    if(response!.ok) {
+        const data = await response!.json();
         dispatch(login());
-        localStorage.setItem("isLogged", true);
+        localStorage.setItem("isLogged", 'true');
         localStorage.setItem("username", username);
         localStorage.setItem("accessToken", data.accessToken);
         localStorage.setItem("refreshToken", data.refreshToken);
-        getPurchases();
+        getPurchases(navigate);
         navigate('/products');
     } else {
         alert(`Invalid username or password. Try again!`)
     }
 }
 
-export async function signUp(username, password, navigate){
+export async function signUp(username : string, password : string, navigate : any) : Promise<void> {
+    let response : Response | null = null;
     try {
-        var response = await fetch(`${process.env.REACT_APP_API}/users`, {
+        response = await fetch(`${process.env.REACT_APP_API}/users`, {
             method: 'POST',
             headers: { "Content-Type" : "application/json"},
             body: JSON.stringify({
@@ -91,7 +97,7 @@ export async function signUp(username, password, navigate){
     } catch (error) {
         console.error(error);
     }
-    if(response.ok) {
+    if(response!.ok) {
         alert(`You have successfully registered, ${username}!`);
         navigate("/login");
     } else {
@@ -99,9 +105,10 @@ export async function signUp(username, password, navigate){
     }
 }
 
-export async function handlePurchase(dispatch, navigate, cartItems) {
+export async function handlePurchase(dispatch : any, navigate : any, cartItems : ICartItem[]) : Promise<void> {
+    let response : Response | null = null;
     try {
-        var response = await fetch(`${process.env.REACT_APP_API}/purchases`, {
+        response = await fetch(`${process.env.REACT_APP_API}/purchases`, {
             method: 'POST',
             headers: { 
                 "Content-Type" : "application/json",
@@ -114,19 +121,20 @@ export async function handlePurchase(dispatch, navigate, cartItems) {
     } catch (error) {
         console.error(error);
     }
-    if(response.ok) {
+    if(response!.ok) {
         dispatch(purchase());
-        getPurchases();
+        getPurchases(navigate);
         navigate('/products');
     } else {
         refreshTokenFunction(navigate);
-        handlePurchase();
+        handlePurchase(dispatch, navigate, cartItems);
     }
 }
 
-export async function handleLogout(dispatch, navigate) {
+export async function handleLogout(dispatch : any, navigate : any) : Promise<void> {
+    let response : Response | null = null;
     try {
-        var response = await fetch('http://localhost:4000/logout', {
+        response = await fetch('http://localhost:4000/logout', {
             method: 'DELETE',
             headers: { "Content-Type" : "application/json"},
             body: JSON.stringify({
@@ -136,11 +144,11 @@ export async function handleLogout(dispatch, navigate) {
     } catch (error) {
         console.error(error);
     }
-    if(response.ok) {
+    if(response!.ok) {
         dispatch(logout());
         localStorage.clear();
         navigate('/login');
     } else {
-        alert(response.status);
+        alert(response!.status);
     }
 }

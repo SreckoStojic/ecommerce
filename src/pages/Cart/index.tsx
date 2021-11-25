@@ -6,16 +6,20 @@ import { clearCart } from '../../actions/cart';
 import { useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
 import { handlePurchase } from '../../utils/apiFunctions';
+import { ReactElement } from "react";
+import { ICartItem } from '../../components/CartItem';
+import { RootState } from '../../reducers/index';
 
-function Cart() {
+function Cart() : ReactElement {
     const { t } = useTranslation();
-    const columns = ['ID', t('name'), t('weight'), t('color'), t('count'), t('price'), t('remove')];
+    const columns : string[] = ['ID', t('name'), t('weight'), t('color'), t('count'), t('price'), t('remove')];
     const navigate = useNavigate();
-    const cartItems = useSelector(state => state.cart.cartItems);
+    const cartItems : ICartItem[] = useSelector((state : RootState) => state.cart.cartItems);
     const dispatch = useDispatch();
-    function calculateTotalPrice() {
+    
+    function calculateTotalPrice() : number {
         let total = 0;
-        cartItems.forEach(item => {
+        cartItems.forEach((item : ICartItem) => {
             total += item.price * item.inCart;
         });
         return total;

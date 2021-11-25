@@ -1,8 +1,24 @@
 import styles from './CartItem.module.css';
 import { removeItemFromCart, addInCartByOne, removeInCartByOne } from '../../actions/cart';
 import { useDispatch } from 'react-redux';
+import { ReactElement } from 'react';
 
-function CartItem({cartItem}) {
+interface PropsTypeCartItem {
+    cartItem: ICartItem
+}
+
+export interface ICartItem {
+    id: number;
+    name: string;
+    count: number;
+    price: number;
+    weight: number;
+    imgUrl: string;
+    color: string;
+    inCart: number;
+}
+
+function CartItem({cartItem} : PropsTypeCartItem) : ReactElement {
     const dispatch = useDispatch();
     return (
         <tr>

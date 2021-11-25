@@ -6,8 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 
-
-function Login({handleLogin}) {
+function Login({handleLogin} : any) {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -20,8 +19,8 @@ function Login({handleLogin}) {
             <div className={styles['sign-up']}>
                 <h1 className={styles['h1']}>{t('login')}</h1>
                 <form className={styles['login-form']}>
-                    <input data-testid="username-input-id" className={styles['sign-up-input']} type="text" value={username} onInput={e => setUsername(e.target.value)} name="username" placeholder={t('username')+'...'} />
-                    <input data-testid="password-input-id" className={styles['sign-up-input']} type="password" value={password} onInput={e => setPassword(e.target.value)} name="password" placeholder={t('password')+'...'} />
+                    <input data-testid="username-input-id" className={styles['sign-up-input']} type="text" value={username} onInput={e => setUsername((e.target as HTMLInputElement).value)} name="username" placeholder={t('username')+'...'} />
+                    <input data-testid="password-input-id" className={styles['sign-up-input']} type="password" value={password} onInput={e => setPassword((e.target as HTMLInputElement).value)} name="password" placeholder={t('password')+'...'} />
                     <button data-testid="login-btn-id" className={styles['login-btn']} type="button" onClick={() => handleLogin(dispatch, username, password, navigate)}>{t('login')}</button>
                 </form>
             </div>

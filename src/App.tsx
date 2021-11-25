@@ -1,6 +1,6 @@
 import './App.css';
 import Home from './pages/Home';
-import { BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
+import { BrowserRouter, Routes, Route} from 'react-router-dom'
 import Products from './pages/Products';
 import SignUp from './pages/SignUp';
 import ProductInfo from './pages/ProductInfo';
@@ -10,12 +10,13 @@ import Dashboard from './pages/Dashboard';
 import DashboardItem from './pages/DashboardItem';
 import { handleLogin } from './utils/apiFunctions';
 import PrivateRoute from './pages/PrivateRoute';
+import { ReactElement } from 'react';
 
-function App() {
+function App() : ReactElement {
   return (
       <BrowserRouter>
         <Routes>
-            <Route exact 
+            <Route 
               path="/"
               element={<Home />} 
             />

@@ -3,8 +3,9 @@ import Header from "../../components/Header";
 import { getProducts }  from '../../utils/products';
 import { useSearchParams } from "react-router-dom";
 import styles from './Products.module.css';
+import { ReactElement } from 'react';
 
-function Products() {
+function Products() : ReactElement {
     const [searchParams, setSearchParams] = useSearchParams();
     return (
         <div>

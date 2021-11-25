@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
@@ -13,7 +12,7 @@ i18n
   .use(initReactI18next)
   .init({
     resources : resources,
-    lng: localStorage.getItem('lang'),
+    lng: localStorage.getItem('lang') || undefined,
     fallbackLng: ['en', 'srb'],
     interpolation: {
       escapeValue: false
@@ -21,9 +20,7 @@ i18n
     react: { useSuspense: false }
   });
 
-const store = createStore(allReducers,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  );
+const store = createStore(allReducers);
 
 ReactDOM.render(
     <Provider store={store}>

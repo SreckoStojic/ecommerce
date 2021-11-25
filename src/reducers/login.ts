@@ -1,8 +1,14 @@
-const initialState = {
+import { Action } from "redux";
+
+interface IStateLogin { 
+    isLogged : string | boolean
+}
+
+const initialState : IStateLogin = {
     isLogged : localStorage.getItem('isLogged') || false
 }
 
-const loginReducer = (state = initialState, action) => {
+const loginReducer = (state = initialState, action : Action) => {
     switch (action.type) {
         case 'LOGIN':
             state.isLogged = true;

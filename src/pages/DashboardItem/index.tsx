@@ -2,16 +2,19 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import Header from '../../components/Header';
 import styles from './DashboardItem.module.css';
+import { IDashboardListItem } from '../../components/DashboardList';
+import { ReactElement } from 'react';
+import { IProduct } from '../../components/Product';
 
-function DashboardItem() {
+function DashboardItem() : ReactElement {
     const { t } = useTranslation();
-    const columns = ['ID', t('name'), t('weight'), t('color'), t('amount'), t('price')];
-    let { purchaseId } = useParams();
-    let dashboardItem = getDashboardItemById(purchaseId);
+    const columns : string[] = ['ID', t('name'), t('weight'), t('color'), t('amount'), t('price')];
+    let { purchaseId }  = useParams();
+    let dashboardItem  = getDashboardItemById(purchaseId);
     
-    function getDashboardItemById(id) {
-        let products = [];
-        let data = JSON.parse(localStorage.getItem('data'));
+    function getDashboardItemById(id : string | undefined) : IProduct[]{
+        let products : IProduct[] = [];
+        let data : IDashboardListItem[] = JSON.parse(localStorage.getItem('data') || '{}');
         data.forEach(dataItem => {
             if(String(dataItem.id) === String(id)) {
                 products = dataItem.products;
@@ -20,7 +23,7 @@ function DashboardItem() {
         return products;
     }
 
-    function calculateTotalPrice() {
+    function calculateTotalPrice() : number{
         let total = 0;
         dashboardItem.forEach(item => {
             total += item.price * item.inCart;

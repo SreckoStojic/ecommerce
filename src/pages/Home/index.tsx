@@ -1,8 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import Header from '../../components/Header';
 import styles from './Home.module.css';
+import { ReactElement } from 'react';
 
-function Home() {
+function Home() : ReactElement {
     const { t } = useTranslation();
     return (
         <div>

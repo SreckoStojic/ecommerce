@@ -1,11 +1,17 @@
 import { getProductById, getProducts } from "../utils/products";
+import { ICartItem } from '../components/CartItem';
 
-const initialState = {
+interface IStateCart { 
+  cartItems: ICartItem[];
+  totalItemsCount: number;
+}
+
+const initialState : IStateCart = {
     cartItems: [],
     totalItemsCount: 0
 }
 
-const cartReducer = (state = initialState, action) => {
+const cartReducer = (state = initialState, action : any) => {
     switch (action.type) {
         case 'ADD_ITEM_TO_CART':
             addItemToCart(state, action.payload);
@@ -33,17 +39,17 @@ const cartReducer = (state = initialState, action) => {
 export default cartReducer;
 
 
-function addItemToCart(state, productId) {
-    let found = false;
-    const product = getProductById(productId);
+function addItemToCart(state : IStateCart, productId : number) {
+    let found : boolean = false;
+    const product : ICartItem | null = getProductById(productId);
     if(state.cartItems.length === 0) {
-      if(product.count > 0){
-        product.inCart += 1;
-        state.cartItems.push(product);
+      if(product!.count > 0){
+        product!.inCart += 1;
+        state.cartItems.push(product!);
       }
     } else {
       state.cartItems.forEach(ci => {
-        if(ci.id === product.id){
+        if(ci.id === product!.id){
           if(ci.inCart < ci.count && ci.count > 0){
             ci.inCart += 1;
           }
@@ -51,23 +57,23 @@ function addItemToCart(state, productId) {
         }
       });
       if(found === false) {
-        if(product.count > 0){
-          product.inCart += 1;
-          state.cartItems.push(product);
+        if(product!.count > 0){
+          product!.inCart += 1;
+          state.cartItems.push(product!);
         }
       }
     }
   }
 
-  function removeItemFromCart(state, productId) {
+  function removeItemFromCart(state : IStateCart, productId : number) {
     state.cartItems = state.cartItems.filter(cartItem => {
-        return cartItem.id !== productId;
+        return Number(cartItem.id) !== productId;
     });
     state.totalItemsCount = calculateTotalCartCount(state);
     return state;
   }
 
-  function clearCart(state) {
+  function clearCart(state : IStateCart) {
     state.cartItems = [];
     state.totalItemsCount = 0;
     clearInCartCount();
@@ -80,9 +86,9 @@ function addItemToCart(state, productId) {
     });
   }
 
-  function addInCartByOne(state, productId) {
+  function addInCartByOne(state : IStateCart, productId : number) {
     state.cartItems.forEach(ci => {
-      if(ci.id === Number(productId)) {
+      if(Number(ci.id) === Number(productId)) {
         ci.inCart += 1;
       }
     });
@@ -90,9 +96,9 @@ function addItemToCart(state, productId) {
     return state;
   }
 
-  function removeInCartByOne(state, productId) {
+  function removeInCartByOne(state : IStateCart, productId : number) {
     state.cartItems.forEach(ci => {
-      if(ci.id === Number(productId)) {
+      if(Number(ci.id) === Number(productId)) {
         ci.inCart -= 1;
       }
     });
@@ -100,10 +106,10 @@ function addItemToCart(state, productId) {
     return state;
   }
   
-  function purchase(state) {
+  function purchase(state : IStateCart) {
     if(state.cartItems.length !== 0) {
       alert("Thanks for buying our products. Receipt is sent to your email address.");
-      let newState = resetInCart(state);
+      let newState : IStateCart = resetInCart(state);
       clearCart(newState);
       return newState;
     } else {
@@ -112,10 +118,10 @@ function addItemToCart(state, productId) {
     return state;
   }
 
-  function resetInCart(state) {
+  function resetInCart(state : IStateCart) {
     getProducts().forEach(product => {
       state.cartItems.forEach(ci => {
-        if(product.id === ci.id){
+        if(Number(product.id) === Number(ci.id)){
           product.count -= ci.inCart; 
         }
       });
@@ -123,7 +129,7 @@ function addItemToCart(state, productId) {
     return state;
   }
 
-  function calculateTotalCartCount(state) {
+  function calculateTotalCartCount(state : IStateCart) {
     let totalCartCnt = 0;
     if(state.cartItems.length !== 0){
         state.cartItems.forEach(ci => {

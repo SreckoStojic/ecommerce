@@ -1,8 +1,9 @@
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
+import { RootState } from '../../reducers';
 
-function PrivateRoute({children}) {
-    const isLogged = useSelector(state => state.login.isLogged);
+function PrivateRoute({children} : any) {
+    const isLogged : string | boolean = useSelector((state : RootState) => state.login.isLogged);
 
     return (
         isLogged ? children : <Navigate to="/login" />

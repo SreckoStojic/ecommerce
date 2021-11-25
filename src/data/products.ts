@@ -1,4 +1,6 @@
-let products = [
+import { ICartItem } from '../components/CartItem';
+
+let products : ICartItem[] = [
     {
         id: 1,
         name: "Moto G9 Play",

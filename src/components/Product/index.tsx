@@ -3,8 +3,24 @@ import { Link } from 'react-router-dom';
 import { addItemToCart } from '../../actions/cart';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { ReactElement } from 'react';
+
+interface PropsTypeProduct {
+    product: IProduct
+}
+
+export interface IProduct {
+    id: number;
+    name: string;
+    count: number;
+    price: number;
+    weight: number;
+    imgUrl: string;
+    color: string;
+    inCart: number;
+}
  
-function Product({product}) {
+function Product({product} : PropsTypeProduct) : ReactElement {
     const { t } = useTranslation();
     const dispatch = useDispatch();
     return (
